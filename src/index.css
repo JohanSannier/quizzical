@@ -83,7 +83,7 @@ hr {
 }
 
 .submit {
-  margin: 0 auto;
+  margin: 0 1rem;
   display: grid;
   place-items: center;
   padding: 1rem 2rem;
@@ -97,4 +97,10 @@ hr {
 
 .submit:hover {
   background-color: #cacbce;
+}
+
+.count-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

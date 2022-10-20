@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { recapQuestion } from "../features/answerSlice";
+import { v4 as uuid } from "uuid";
 
-const Question = ({ data, transferAnswers }) => {
+const Question = ({ data, order }) => {
+  const dispatch = useDispatch();
+  const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [id, setId] = useState(uuid());
 
   const shuffleAnswers = () => {
     const allAnswers = [...data?.incorrect_answers, data?.correct_answer];
@@ -16,9 +22,23 @@ const Question = ({ data, transferAnswers }) => {
   };
 
   useEffect(() => {
+    setQuestion(data?.question);
     shuffleAnswers();
     setCorrectAnswer(data?.correct_answer);
   }, [data]);
+
+  useEffect(() => {
+    dispatch(
+      recapQuestion({
+        id,
+        order,
+        answers,
+        correctAnswer,
+        selectedAnswer,
+        question,
+      })
+    );
+  }, [selectedAnswer]);
 
   return (
     <div className="container">
