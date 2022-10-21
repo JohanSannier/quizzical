@@ -5,7 +5,13 @@ import Quiz from "./pages/Quiz";
 const App = () => {
   const [startQuiz, setStartQuiz] = useState(false);
   return (
-    <main>{!startQuiz ? <Home startQuiz={setStartQuiz} /> : <Quiz />}</main>
+    <main>
+      {!startQuiz ? (
+        <Home startQuiz={setStartQuiz} />
+      ) : (
+        <Quiz startQuiz={setStartQuiz} />
+      )}
+    </main>
   );
 };
 

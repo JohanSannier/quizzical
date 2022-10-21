@@ -5,15 +5,21 @@ import Question from "../components/Question";
 import Result from "../components/Result";
 import { clearQuiz } from "../features/answerSlice";
 
-const Quiz = () => {
+const Quiz = ({ startQuiz }) => {
   const [data, setData] = useState([]);
   const seeAnswers = useSelector((state) => state.answers);
   const [showAnswers, setShowAnswers] = useState(false);
   const dispatch = useDispatch();
+  const select = useSelector((state) => state.select);
 
   const getQuestions = () => {
+    const baseUrl = "https://opentdb.com/api.php?amount=5";
+    const addDifficulty =
+      select?.difficulty !== null ? `&difficulty=${select?.difficulty}` : "";
+    const addCategory =
+      select?.category !== null ? `&category=${select?.category}` : "";
     try {
-      fetch("https://opentdb.com/api.php?amount=5")
+      fetch(`${baseUrl}${addDifficulty}${addCategory}`)
         .then((res) => res.json())
         .then((res) => setData(res.results));
     } catch (error) {
@@ -50,6 +56,9 @@ const Quiz = () => {
           {!showAnswers ? "Check answers" : "Play again"}
         </button>
       </div>
+      <button className="backHome" onClick={() => startQuiz(false)}>
+        Home
+      </button>
     </section>
   );
 };
