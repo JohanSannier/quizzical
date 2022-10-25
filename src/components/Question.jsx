@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { recapQuestion } from "../features/answerSlice";
 import { v4 as uuid } from "uuid";
+import { formatedData } from "../utils/formatData.js";
 
 const Question = ({ data, order }) => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const Question = ({ data, order }) => {
 
   return (
     <div className="container">
-      <div className="question">{data?.question}</div>
+      <div className="question">{formatedData(data?.question)}</div>
       <div className="responses">
         {answers?.map((answer, index) => (
           <span
@@ -51,7 +52,7 @@ const Question = ({ data, order }) => {
             onClick={() => selectAnswer(answer)}
             style={{ backgroundColor: answer === selectedAnswer && "#cacbce" }}
           >
-            {answer}
+            {formatedData(answer)}
           </span>
         ))}
       </div>

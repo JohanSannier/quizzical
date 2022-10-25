@@ -1,9 +1,10 @@
 import React from "react";
+import { formatedData } from "../utils/formatData.js";
 
 const Result = ({ result }) => {
   return (
     <div className="container">
-      <div className="question">{result?.question}</div>
+      <div className="question">{formatedData(result?.question)}</div>
       <div className="responses">
         {result?.answers.map((answer, index) => (
           <span
@@ -18,7 +19,7 @@ const Result = ({ result }) => {
                   : "#cacbce",
             }}
           >
-            {answer}
+            {formatedData(answer)}
           </span>
         ))}
       </div>

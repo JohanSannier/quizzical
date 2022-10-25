@@ -11,6 +11,7 @@ const Quiz = ({ startQuiz }) => {
   const [showAnswers, setShowAnswers] = useState(false);
   const dispatch = useDispatch();
   const select = useSelector((state) => state.select);
+  const [waiting, setWaiting] = useState(false);
 
   const getQuestions = () => {
     const baseUrl = "https://opentdb.com/api.php?amount=5";
@@ -21,7 +22,10 @@ const Quiz = ({ startQuiz }) => {
     try {
       fetch(`${baseUrl}${addDifficulty}${addCategory}`)
         .then((res) => res.json())
-        .then((res) => setData(res.results));
+        .then((res) => {
+          setData(res.results);
+          setWaiting(false);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -29,6 +33,7 @@ const Quiz = ({ startQuiz }) => {
 
   const checkAnswers = () => {
     if (showAnswers) {
+      setWaiting(true);
       getQuestions();
       dispatch(clearQuiz());
       setShowAnswers(false);
@@ -38,8 +43,10 @@ const Quiz = ({ startQuiz }) => {
   };
 
   useEffect(() => {
+    setWaiting(true);
     getQuestions();
   }, []);
+
   return (
     <section className="quiz">
       {!showAnswers &&
@@ -59,6 +66,9 @@ const Quiz = ({ startQuiz }) => {
       <button className="backHome" onClick={() => startQuiz(false)}>
         Home
       </button>
+      <div id="loader" style={{ display: waiting ? "" : "none" }}>
+        Loading questions...
+      </div>
     </section>
   );
 };
