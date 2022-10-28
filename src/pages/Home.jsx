@@ -41,7 +41,7 @@ const Home = ({ startQuiz }) => {
       <h1>Quizzical</h1>
       <p>Improve your knowledge with our quiz!</p>
       <p className="optional">
-        <span>Optional</span> <br />
+        <span>Optional:</span> <br />
         If you want, you can choose either a category, a difficulty or both!
       </p>
       <form onSubmit={(e) => handleSubmit(e)}>
