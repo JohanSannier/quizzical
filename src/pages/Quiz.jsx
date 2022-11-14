@@ -63,7 +63,13 @@ const Quiz = ({ startQuiz }) => {
           {!showAnswers ? "Check answers" : "Play again"}
         </button>
       </div>
-      <button className="backHome" onClick={() => startQuiz(false)}>
+      <button
+        className="backHome"
+        onClick={() => {
+          startQuiz(false);
+          dispatch(clearQuiz());
+        }}
+      >
         Home
       </button>
       <div id="loader" style={{ display: waiting ? "" : "none" }}>
